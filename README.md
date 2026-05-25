@@ -1,4 +1,4 @@
-# World Cup Analytics — O Paradoxo do Hexa
+# World Cup Analytics — DNA dos Campeões
 
 > **Brasil tem o 6º maior perfil estatístico de campeão mundial. E não ganha uma Copa há 24 anos.**
 > Esse projeto analisa 92 anos de Copa do Mundo (1930–2022) para entender o porquê.
@@ -9,14 +9,6 @@
 
 ## 📌 O projeto
 
-Esse projeto começou com uma pergunta que todo brasileiro já fez em algum momento:
-
-**Por que o Brasil não ganha mais uma Copa do Mundo?**
-
-Os números históricos não justificam 24 anos sem título. O Brasil é a maior seleção da história em quase todas as métricas absolutas — mais participações, mais vitórias, mais gols, mais títulos. Mas desde 2002 não levanta o troféu.
-
-Então fui atrás da resposta da única forma defensável: com dados.
-
 Analisei 964 partidas de Copa do Mundo entre 1930 e 2022 para:
 
 1. Identificar o **padrão estatístico dos campeões** mundiais (DNA do campeão)
@@ -24,13 +16,11 @@ Analisei 964 partidas de Copa do Mundo entre 1930 e 2022 para:
 3. Confrontar o Brasil 2022 com esse padrão
 4. Construir uma **síntese reflexiva** sobre o paradoxo do hexa
 
-A resposta encontrada não é simples. Mas é **defensável**, **reproduzível** e **conta uma história** que não cabe num achismo da imprensa esportiva.
-
 ---
 
 ## 🎯 Objetivo
 
-Construir uma análise end-to-end que responda a 7 perguntas de negócio sobre o desempenho histórico das seleções em Copas do Mundo, usando uma stack completa de engenharia de dados, SQL avançado, machine learning e visualização — entregando um dashboard navegável que conecta dado bruto a narrativa executiva.
+Construir uma análise end-to-end que responda a 7 perguntas de negócio sobre o desempenho histórico das seleções em Copas do Mundo, usando uma stack completa de engenharia de dados, SQL avançado, machine learning e visualização, entregando um dashboard navegável que conecta dado bruto a narrativa executiva.
 
 ---
 
@@ -158,7 +148,7 @@ Após análise de correlação com `is_champion`:
 🌱 Emerging Teams           →  ~38 seleções
 ```
 
-### Champion Probability
+### Champion DNA Score
 
 Score de proximidade ao centroide dos campeões, calculado via **distância de Mahalanobis** com matriz de covariância robusta (pseudo-inversa de Moore-Penrose). Normalizado para escala 0–1.
 
@@ -168,8 +158,6 @@ cov_inv = np.linalg.pinv(np.cov(X_scaled.T))
 distances = [mahalanobis(row, champ_centroid, cov_inv) for row in X_scaled]
 champion_probability = (1 - (distances - d_min) / (d_max - d_min)).round(3)
 ```
-
-> **Nota técnica:** o nome "champion_probability" é uma simplificação narrativa. Tecnicamente, é um **score de similaridade normalizado**, não uma probabilidade Bayesiana. A renomeação para `champion_dna_score` está prevista como melhoria futura (ver seção *Limitações*).
 
 ---
 
@@ -191,7 +179,7 @@ Cada página tem **um tempo verbal e um propósito distinto** — não há redun
 
 ## 💡 Principais achados
 
-### 1. Champion Probability do Brasil: 0,95 (6º no mundo)
+### 1. Champion DNA Score do Brasil: 0,95 (6º no mundo)
 
 Brasil está no cluster *World Cup Champions* do modelo, a apenas 0,05 do líder (Argentina). O perfil estatístico de campeão **está lá** — win rate de 69%, knockout win rate de 69%, 2,08 gols marcados por jogo, 0,95 sofridos.
 
